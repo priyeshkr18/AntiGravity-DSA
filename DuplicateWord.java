@@ -1,35 +1,38 @@
-import java.util.*;
+import java.util.Scanner;
 
 public class DuplicateWord {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("Enter words (type 'stop' to finish):");
+        System.out.print("How many fruits will you enter? ");
+        int n = sc.nextInt();
+        sc.nextLine();
 
-        Map<String, Integer> map = new HashMap<>();
+        String[] fruits = new String[n];
 
-        while (true) {
-            String word = sc.nextLine().trim().toLowerCase();
-
-            if (word.equals("stop")) {
-                break;
-            }
-
-            map.put(word, map.getOrDefault(word, 0) + 1);
+        System.out.println("Enter fruit names:");
+        for (int i = 0; i < n; i++) {
+            fruits[i] = sc.nextLine().toLowerCase();
         }
 
-        System.out.println("Words appearing more than once:");
+        System.out.println("Duplicate fruits:");
+        for (int i = 0; i < n; i++) {
+            int count = 1;
 
-        boolean found = false;
-        for (String w : map.keySet()) {
-            if (map.get(w) > 1) {
-                System.out.println(w + " -> " + map.get(w) + " times");
-                found = true;
+            if (fruits[i].equals("checked")) {
+                continue;
             }
-        }
 
-        if (!found) {
-            System.out.println("No duplicate words found!");
+            for (int j = i + 1; j < n; j++) {
+                if (fruits[i].equals(fruits[j])) {
+                    count++;
+                    fruits[j] = "checked";
+                }
+            }
+
+            if (count > 1) {
+                System.out.println(fruits[i] + " -> " + count + " times");
+            }
         }
     }
 }
